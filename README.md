@@ -1,6 +1,7 @@
 # Airline Passenger Satisfaction Analysis
 
 An end-to-end exploratory and statistical analysis of passenger satisfaction using survey responses from **129,880 airline passengers**. The project examines how service quality, travel class, passenger characteristics, and flight delays relate to overall satisfaction.
+Data source: https://mavenanalytics.io/data-playground/airline-passenger-satisfaction
 
 ## Final report
 
