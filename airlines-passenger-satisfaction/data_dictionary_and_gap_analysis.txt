@@ -1,0 +1,261 @@
+AIRLINE PASSENGER SATISFACTION
+DATA DICTIONARY AND HYPOTHESIS GAP ANALYSIS
+============================================================
+
+Source file
+-----------
+File: data/raw/airline_passenger_satisfaction.csv
+Rows: 129,880 passenger survey records
+Columns: 24
+Duplicate complete rows: 0
+Missing values: 393 in Arrival Delay; none detected elsewhere
+
+Important interpretation note
+-----------------------------
+The dataset does not include an official codebook. The descriptions below are
+based on column names and observed values. The exact meaning of a rating of 0
+is not documented and should be confirmed with the data provider before it is
+treated as a genuine low score.
+
+
+DATA DICTIONARY
+===============
+
+1. ID
+   Type: Integer identifier
+   Observed values: 1 to 129,880; all values unique
+   Description: Unique identifier for each passenger survey record.
+   Quality note: Useful for record tracking, but not as an analytical feature.
+
+2. Gender
+   Type: Categorical
+   Observed values: Female, Male
+   Description: Passenger gender as recorded in the survey.
+   Quality note: Limited to two categories; collection method is not provided.
+
+3. Age
+   Type: Integer, numeric
+   Observed range: 7 to 85 years
+   Description: Passenger age in years.
+
+4. Customer Type
+   Type: Categorical
+   Observed values: Returning, First-time
+   Description: Indicates whether the passenger is a returning or first-time
+   customer.
+
+5. Type of Travel
+   Type: Categorical
+   Observed values: Business, Personal
+   Description: Main purpose of the passenger's trip.
+
+6. Class
+   Type: Categorical
+   Observed values: Business, Economy, Economy Plus
+   Description: Cabin or travel class used by the passenger.
+
+7. Flight Distance
+   Type: Integer, numeric
+   Observed range: 31 to 4,983
+   Description: Distance of the passenger's flight.
+   Quality note: The unit of measurement is not documented; it is likely miles
+   or kilometers and must be confirmed.
+
+8. Departure Delay
+   Type: Integer, numeric
+   Observed range: 0 to 1,592
+   Description: Length of the flight's departure delay.
+   Quality note: The unit is not documented; the values are likely minutes and
+   must be confirmed. There are no missing values.
+
+9. Arrival Delay
+   Type: Numeric
+   Observed range: 0 to 1,584
+   Description: Length of the flight's arrival delay.
+   Quality note: 393 values are missing (about 0.30% of all records). The unit
+   is not documented; the values are likely minutes and must be confirmed.
+
+SERVICE-RATING VARIABLES
+------------------------
+The following variables are ordinal passenger ratings. Observed values are
+generally integers from 0 to 5, where a higher number is assumed to indicate a
+better evaluation. The dataset provides no rating labels or definition for 0.
+
+10. Departure and Arrival Time Convenience
+    Type: Ordinal rating (0 to 5)
+    Description: Passenger evaluation of the convenience of departure and
+    arrival times.
+
+11. Ease of Online Booking
+    Type: Ordinal rating (0 to 5)
+    Description: Passenger evaluation of the online booking process.
+
+12. Check-in Service
+    Type: Ordinal rating (0 to 5)
+    Description: Passenger evaluation of check-in service.
+
+13. Online Boarding
+    Type: Ordinal rating (0 to 5)
+    Description: Passenger evaluation of the online boarding process or tools.
+
+14. Gate Location
+    Type: Ordinal rating (0 to 5)
+    Description: Passenger evaluation of the flight's gate location.
+
+15. On-board Service
+    Type: Ordinal rating (0 to 5)
+    Description: Passenger evaluation of service received on the aircraft.
+
+16. Seat Comfort
+    Type: Ordinal rating (0 to 5)
+    Description: Passenger evaluation of seat comfort.
+
+17. Leg Room Service
+    Type: Ordinal rating (0 to 5)
+    Description: Passenger evaluation of available leg room.
+
+18. Cleanliness
+    Type: Ordinal rating (0 to 5)
+    Description: Passenger evaluation of aircraft cleanliness.
+
+19. Food and Drink
+    Type: Ordinal rating (0 to 5)
+    Description: Passenger evaluation of food and beverage service.
+
+20. In-flight Service
+    Type: Ordinal rating (0 to 5)
+    Description: Passenger evaluation of general in-flight service.
+
+21. In-flight Wifi Service
+    Type: Ordinal rating (0 to 5)
+    Description: Passenger evaluation of onboard Wi-Fi service.
+
+22. In-flight Entertainment
+    Type: Ordinal rating (0 to 5)
+    Description: Passenger evaluation of onboard entertainment.
+
+23. Baggage Handling
+    Type: Ordinal rating (1 to 5)
+    Description: Passenger evaluation of baggage handling.
+    Quality note: Unlike the other service variables, no value of 0 is present.
+
+24. Satisfaction
+    Type: Binary categorical outcome
+    Observed values:
+      - Satisfied: 56,428 records
+      - Neutral or Dissatisfied: 73,452 records
+    Description: Passenger's overall satisfaction classification.
+    Quality note: Neutral and dissatisfied responses are combined, so those
+    two outcomes cannot be studied separately.
+
+
+SUFFICIENCY FOR TESTING THE DEFINED HYPOTHESES
+==============================================
+
+Overall conclusion
+------------------
+The dataset is sufficient to test statistical associations for all three
+hypotheses. Its large sample size and relevant variables support comparisons,
+association tests, and multivariable models. However, it is observational and
+does not support causal claims by itself.
+
+Hypothesis 1: Higher cleanliness, seat comfort, and on-board service ratings
+are associated with higher overall satisfaction.
+
+Assessment: SUFFICIENT FOR ASSOCIATION TESTING
+
+Available variables:
+  - Cleanliness
+  - Seat Comfort
+  - On-board Service
+  - Satisfaction
+
+Possible analysis:
+  - Compare satisfaction rates across rating levels.
+  - Use a chi-square trend/association test or logistic regression.
+  - Include passenger and travel variables as controls in regression.
+
+Gaps and limitations:
+  - The meaning of rating 0 is unknown. It could mean the lowest score, not
+    applicable, or not used; this must be resolved or tested in sensitivity
+    analysis.
+  - Service ratings and overall satisfaction appear to come from the same
+    survey, so common-response bias may strengthen observed associations.
+  - No survey questions, scale definitions, or collection methodology are
+    supplied.
+  - The data can show association but cannot prove that improving a particular
+    service will cause satisfaction to increase.
+
+Hypothesis 2: Business-class passengers have a higher satisfaction rate than
+economy and economy-plus passengers.
+
+Assessment: SUFFICIENT FOR GROUP COMPARISON
+
+Available variables:
+  - Class
+  - Satisfaction
+  - Useful control variables: Type of Travel, Customer Type, Age, Gender,
+    Flight Distance, delays, and service ratings
+
+Possible analysis:
+  - Calculate satisfaction rate for each class.
+  - Use a chi-square test for differences among classes.
+  - Use logistic regression to adjust for observable passenger and flight
+    differences.
+
+Gaps and limitations:
+  - Class is not randomly assigned. Differences may be influenced by travel
+    purpose, customer type, distance, price, loyalty benefits, or other factors.
+  - Fare paid, ticket type, loyalty-program status, route, aircraft, airline,
+    and upgrade status are unavailable, leaving important potential confounders.
+  - Economy Plus has substantially fewer records (9,411) than Business (62,160)
+    or Economy (58,309), although it is still large enough for testing.
+  - Results can establish a difference between groups, not prove that cabin
+    class itself caused that difference.
+
+Hypothesis 3: Longer departure or arrival delays are associated with lower
+overall satisfaction.
+
+Assessment: SUFFICIENT FOR ASSOCIATION TESTING
+
+Available variables:
+  - Departure Delay
+  - Arrival Delay
+  - Satisfaction
+  - Useful control variables: Class, Type of Travel, Customer Type, Flight
+    Distance, Age, Gender, and service ratings
+
+Possible analysis:
+  - Compare satisfaction across delay-duration bands.
+  - Model delay duration continuously with logistic regression, checking for a
+    nonlinear relationship and the influence of extreme delays.
+  - Analyze departure and arrival delays separately because they are related
+    but represent different parts of the journey.
+
+Gaps and limitations:
+  - Arrival Delay has 393 missing values. The missingness pattern should be
+    checked before records are excluded or values are imputed.
+  - Delay units are not explicitly documented.
+  - Extreme values reach more than 1,500 units and should be validated rather
+    than automatically removed.
+  - Scheduled flight duration, route, weather, cancellation/diversion status,
+    reason for delay, and whether delays were communicated or compensated are
+    unavailable. These factors could affect both delay and satisfaction.
+  - The data can identify association but cannot prove that delays caused the
+    reported satisfaction outcome.
+
+
+RECOMMENDED ACTIONS BEFORE ANALYSIS
+===================================
+
+1. Obtain or locate the original dataset documentation to confirm measurement
+   units, rating labels, and the meaning of zero ratings.
+2. Check whether missing Arrival Delay values are concentrated in particular
+   passenger groups, classes, or delay patterns.
+3. Treat Satisfaction as a binary outcome and clearly state that "Neutral or
+   Dissatisfied" is a combined category.
+4. Report unadjusted group comparisons and adjusted models separately.
+5. Use cautious language such as "associated with" rather than "caused by."
+6. Perform sensitivity checks that compare results when zero ratings are kept,
+   treated as missing, or analyzed as a separate response category.
+

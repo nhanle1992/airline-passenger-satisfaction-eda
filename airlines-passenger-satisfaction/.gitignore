@@ -1,0 +1,16 @@
+.DS_Store
+.ipynb_checkpoints/
+.venv/
+__pycache__/
+*.py[cod]
+
+# Keep local datasets and generated figures out of version control.
+data/raw/*
+data/processed/*
+reports/figures/*
+
+# Preserve empty directories.
+!data/raw/.gitkeep
+!data/processed/.gitkeep
+!reports/figures/.gitkeep
+
