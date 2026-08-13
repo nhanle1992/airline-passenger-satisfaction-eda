@@ -1,6 +1,11 @@
+ipykernel
 jupyter
 matplotlib
+nbconvert
+nbformat
 numpy
 pandas
+patsy
+scipy
 seaborn
-
+statsmodels
